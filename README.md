@@ -1,43 +1,44 @@
-# MAE Gradio Inference
+# MAE Streamlit App
 
-This project provides a Gradio interface for performing inference using a pre-trained Masked Autoencoder Vision Transformer (MAE) model. The application allows users to upload images and see the reconstructed outputs based on the MAE model.
+This project provides a Streamlit interface for the MAE (Masked Autoencoder) model defined in `2ndcopy.ipynb`.
+It loads the trained checkpoint from:
 
-## Project Structure
+- `results/outputs/mae_best.pt`
 
+## Files
+
+- `app.py`: Streamlit app for image reconstruction
+- `requirements.txt`: Python dependencies
+- `2ndcopy.ipynb`: Training notebook used to build the model
+- `results/outputs/mae_best.pt`: Trained model checkpoint
+
+## Setup
+
+```bash
+pip install -r requirements.txt
 ```
-mae-gradio-inference
-├── src
-│   ├── app_gradio.py        # Main application logic for loading the MAE model and Gradio interface
-│   └── model.py     # Defines the MAEViT class and model functionalities
-├── checkpoints
-│   └── mae_best.pt          # Pre-trained model weights and configuration
-├── requirements.txt          # Python dependencies for the 
-└── README.md                 # Project documentation
+
+## Run
+
+```bash
+streamlit run app.py
 ```
-
-## Setup Instructions
-
-1. **Create a virtual environment (optional but recommended):**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   ```
-
-2. **Install the required dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Run the application:**
-   ```bash
-   python src/app_gradio.py
-   ```
-
-4. **Access the Gradio interface:**
-   Open your web browser and go to `http://localhost:7860` to interact with the application.
 
 ## Usage
 
-- Upload an image using the provided interface.
-- Adjust the mask ratio using the slider.
-- Click on the "Reconstruct" button to see the masked input, reconstruction, and resized ground truth images.
+1. Open the Streamlit URL shown in terminal (usually `http://localhost:8501`).
+2. Keep checkpoint path as default or set a custom path in the sidebar.
+3. Upload an image (`jpg`, `jpeg`, `png`, `bmp`, or `webp`).
+4. View:
+   - Original image
+   - Masked input
+   - Reconstruction
+5. Optionally adjust:
+   - `Mask ratio`
+   - `Random seed`
+
+## Notes
+
+- The app uses the same MAE architecture and preprocessing from the notebook.
+- Preprocessing: resize to checkpoint image size + tensor conversion (no normalization).
+- If `torch` is not installed, the app will not start.
